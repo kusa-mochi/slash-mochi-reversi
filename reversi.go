@@ -46,14 +46,17 @@ type ReversiResponse struct {
 }
 
 func NextReversiMove(gameStatus CurrentGameStatus) (ReversiResponse, error) {
-    fmt.Printf("next player: %v", gameStatus.NextPlayerColor);
-	return ReversiResponse{
-        CanPut: true,
-        Position: ReversiPosition{
-            Horizontal: 3,
-            Vertical: 4,
-        },
-        }, nil
+    fmt.Println("----- NextReversiMove function begin. -----");
+    fmt.Println("next player:", gameStatus.NextPlayerColor);
+    var ret ReversiResponse = ReversiResponse{
+            CanPut: true,
+            Position: ReversiPosition{
+                Horizontal: 3,
+                Vertical: 4,
+            },
+        }
+    fmt.Println("----- NextReversiMove function fin. -----");
+	return ret, nil
 }
 
 func main() {
