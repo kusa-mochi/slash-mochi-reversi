@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run this shell and upload code.zip to AWS lambda.
+# Run this shell and upload the zip file to AWS lambda.
 # 2021/5/22 mochi
 
 distDir=./dist
