@@ -1,21 +1,22 @@
-// メソッドの概要：
-//   リバーシの現在のプレイ状況から、次のプレイヤーがどこに石を置くべきかを計算し返す。
-// 入力：
-//   ・現在の盤面の状態
-//   ・次の手のプレイヤー（黒/白）
-//   ・探索の深さ
-// 出力：
+// Function summary:
+//   this function show you where to put your next stone on reversi board using current game status.
+// input:
+//   - current status on a reversi board
+//   - next player's stone color (black/white)
+//   - search tree depth
+// return:
 //   ・次の一手が置けるか置けないか
 //   ・次の一手をどこに置くべきか
 //     ・何行目
 //     ・何列目
-// 作成者：
-//   もち（https://slash-mochi.net/）
-// 作成履歴：
+// author:
+//   mochi (https://slash-mochi.net/)
+// history:
 //   2021/xx/xx ver.1.0
 
 package main
 import (
+    "context"
     "fmt"
     "github.com/aws/aws-lambda-go/lambda"
 )
@@ -30,7 +31,7 @@ const (
 )
 // endregion
 
-type CurrentGameStatus struct {
+type ReversiEvent struct {
     NextPlayerColor string `json:"NextPlayerColor"`
     CurrentBoard [][]CellState `json:"CurrentBoard"`
 }
@@ -45,9 +46,9 @@ type ReversiResponse struct {
     Position ReversiPosition `json:"Position"`
 }
 
-func NextReversiMove(gameStatus CurrentGameStatus) (ReversiResponse, error) {
-    fmt.Println("----- NextReversiMove function begin. -----");
-    fmt.Println("next player:", gameStatus.NextPlayerColor);
+func reversi_nextmove_handler(ctx context.Context, reversiEvent ReversiEvent) (ReversiResponse, error) {
+    fmt.Println("----- reversi_nextmove_handler function begin. -----");
+    fmt.Println("next player:", reversiEvent.NextPlayerColor);
     var ret ReversiResponse = ReversiResponse{
             CanPut: true,
             Position: ReversiPosition{
@@ -55,10 +56,10 @@ func NextReversiMove(gameStatus CurrentGameStatus) (ReversiResponse, error) {
                 Vertical: 4,
             },
         }
-    fmt.Println("----- NextReversiMove function fin. -----");
+    fmt.Println("----- reversi_nextmove_handler function fin. -----");
 	return ret, nil
 }
 
 func main() {
-    lambda.Start(NextReversiMove);
+    lambda.Start(reversi_nextmove_handler);
 }
